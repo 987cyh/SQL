@@ -1,0 +1,21 @@
+--REPLACE
+SELECT REPLACE('코드라이언','코드','CODE') FROM DUAL ;
+SELECT REPLACE('코드라이언','코드') FROM DUAL ;
+
+--변경값 미입력시 삭제처리
+SELECT REPLACE('010-1234-1234','-') FROM DUAL ;
+
+SELECT 
+'안녕하세요
+코드라이언입니다'
+FROM DUAL;
+
+SELECT REPLACE('안녕하세요
+코드라이언입니다',CHR(10)) FROM DUAL;
+
+SELECT REPLACE('안녕하세요
+코드라이언입니다',CHR(10),' ') FROM DUAL;
+
+--TABLE에서 변경 처리
+SELECT * FROM NETFLIX_CAST nc ;
+SELECT REPLACE(CAST_MEMBER, '이지은', '아이유') FROM NETFLIX_CAST nc ;
