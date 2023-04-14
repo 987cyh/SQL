@@ -1,0 +1,26 @@
+/*
+□ 참고 : https://school.programmers.co.kr/learn/challenges?tab=sql_practice_kit
+□ 목적 : SELECT 복습(학습)
+*/
+
+-- MySQL
+SELECT PT_NAME, PT_NO,GEND_CD,AGE,
+    IF(TLNO IS NULL, 'NONE', TLNO) AS TLNO
+--     IFNULL(TLNO, "NONE") AS TLNO
+--     COALESCE(TLNO, 'NONE') AS TLNO
+    FROM PATIENT
+    WHERE AGE<=12 AND GEND_CD='W'
+    ORDER BY AGE DESC, PT_NAME ASC;
+
+-- Oracle
+SELECT PT_NAME, PT_NO,GEND_CD,AGE,
+    CASE
+    WHEN TLNO IS NULL THEN 'NONE'
+    ELSE TLNO
+    END AS TLNO
+    -- DECODE(TLNO,NULL,'NONE',TLNO) TLNO
+    -- NVL2(TLNO,TLNO,'NONE') AS "TLNO"
+    -- NVL(TLNO, 'NONE')
+    FROM PATIENT
+    WHERE AGE<=12 AND GEND_CD='W'
+    ORDER BY AGE DESC, PT_NAME ASC;
