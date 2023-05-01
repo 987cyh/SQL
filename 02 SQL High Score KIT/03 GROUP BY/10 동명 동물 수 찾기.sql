@@ -1,0 +1,19 @@
+/*
+□ 참고 : https://school.programmers.co.kr/learn/challenges?tab=sql_practice_kit
+□ 목적 : GROUP BY, HAVING, COUNT 복습(학습)
+*/
+
+-- MySQL
+SELECT NAME, COUNT(*) AS COUNT
+FROM ANIMAL_INS
+WHERE NAME IS NOT NULL
+GROUP BY NAME
+HAVING COUNT(NAME) > 1
+ORDER BY NAME;
+
+-- Oracle
+SELECT NAME, COUNT(NAME) AS COUNT
+FROM ANIMAL_INS
+GROUP BY NAME
+HAVING COUNT(NAME) > 1
+ORDER BY NAME;
