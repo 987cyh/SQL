@@ -1,0 +1,37 @@
+/*
+□ 참고 : https://school.programmers.co.kr/learn/challenges?tab=sql_practice_kit
+□ 목적 : RECURSIVE, JOIN, NVL, LEVEL, CONNECT BY 복습(학습)
+*/
+
+-- MySQL
+WITH RECURSIVE
+    T1 AS
+        (
+        SELECT 0 AS HOUR
+        UNION ALL
+        SELECT HOUR+1 FROM T1 WHERE HOUR < 23
+        ),
+    T2 AS
+        (
+        SELECT HOUR(DATETIME) AS HOUR, COUNT(ANIMAL_ID) AS CNT
+        FROM ANIMAL_OUTS
+        GROUP BY HOUR
+        )
+
+SELECT T1.HOUR,
+       CASE WHEN T2.CNT IS NULL THEN 0
+            ELSE CNT END AS CNT
+FROM T1
+LEFT JOIN T2 ON T1.HOUR = T2.HOUR
+ORDER BY HOUR;
+
+-- Oracle
+SELECT D.HOUR, NVL(O.CNT,0) AS COUNT
+FROM (SELECT LEVEL - 1 AS HOUR
+      FROM DUAL
+      CONNECT BY LEVEL <= 24) D,
+     (SELECT TO_CHAR(DATETIME,'HH24') AS HOUR, COUNT(*) AS CNT
+      FROM ANIMAL_OUTS
+      GROUP BY TO_CHAR(DATETIME,'HH24')) O
+WHERE O.HOUR(+) = D.HOUR OUTER JOIN -- Oracle에서 OUTER JOIN 연산자는 (+)
+ORDER BY HOUR;
